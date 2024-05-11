@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import AddItem from './components/AddItem';
+import ItemsComponent from './components/ItemsComponent';
+import Temperature from './components/Temperature';
+import { useState } from 'react';
 
 function App() {
+
+  let [newItems, setItems] = useState([]);
+
+  function addNewItem(data) {
+    setItems(state => [...state, data]);
+  }
+
+  function deleteItem(id) {
+    setItems(state => newItems.filter(x => x.id !== id));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="container">
+      <ItemsComponent items={newItems} deleteItem={deleteItem} />
+
+      <Temperature />
+
+      <AddItem addNewItem={addNewItem} />
+    </section>
   );
 }
 
